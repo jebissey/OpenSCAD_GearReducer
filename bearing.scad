@@ -1,38 +1,6 @@
-// Planetary gear bearing (customizable)
+include <./Parameters.scad>;
 
-// outer diameter of ring
-D=80;
-// thickness
-T=20;
-// clearance
-tol=0.15;
-number_of_planets=4;
-number_of_teeth_on_planets=15;
-approximate_number_of_teeth_on_sun=10;
-// pressure angle
-P=45;//[30:60]
-// number of teeth to twist across
-nTwist=1;
-// width of hexagonal hole
-w=6.7;
 
-DR=0.5*1;// maximum depth ratio of teeth
-
-m=round(number_of_planets);
-np=round(number_of_teeth_on_planets);
-ns1=approximate_number_of_teeth_on_sun;
-k1=round(2/m*(ns1+np));
-k= k1*m%2!=0 ? k1+1 : k1;
-ns=k*m/2-np;
-echo("ns=",ns);
-nr=ns+2*np;
-pitchD=0.9*D/(1+min(PI/(2*nr*tan(P)),PI*DR/nr));
-pitch=pitchD*PI/nr;
-echo("pitch =",pitch);
-helix_angle=atan(2*nTwist*pitch/T);
-echo("helix_angle=",helix_angle);
-
-phi=$t*360/m;
 
 translate([0,0,T/2])
 {
@@ -47,23 +15,7 @@ translate([0,0,T/2])
 }
 
 
-translate([0,0,-50])
-{
-    difference()
-    {
-        cylinder(r=D/2,h=T,center=true,$fn=100);
-        translate([0,0,-8]) cylinder(r=8,h=5,center=true,$fn=50);       
-        for(i=[1:m]) BallBearing(i);
-        translate([0,0,-T+12+12+1]) cylinder(r=10/sqrt(3),h=12,center=true,$fn=6);
-    }
-}
 
-
-module BallBearing(i)
-{
-    rotate([0,0,i*360/m+phi])translate([pitchD/2*(ns+np)/nr,0,0])
-    translate([0,0,-7]) cylinder(r=11,h=7,center=true,$fn=50);
-}
 
 module Crown()
 {
