@@ -10,6 +10,8 @@ T=20;
 bbT=7;      // thickness
 bbED=22;    // external diameter
 bbID=8;     // internal diameter
+bbIR=12;    // internal ring
+bbIDWH=1; // internal disk washer high
 
 //Thrust Ball Bearing
 tbbT=7;      // thickness
@@ -20,6 +22,19 @@ SlowPartHigh=38;
 slowPartSmallDiameter=30;
 lhhW=17; // large hexagonal hole Width
 lhhH=10; // large hexagonal hole High
+
+//Drill Support
+dsHighTop=200;
+dsWidth=200;
+dsTickness=50;
+dsDepth= 70;
+dsHole=43;
+
+dsHighBottom=50;
+HoleDiameterForThreadedRod=14;
+HoleDiameterForBearingBallPlate=34;
+BearingBallPlateHight=5;
+FixingHolesDiameter=5.5;
 
 // clearance
 tol=0.15;
@@ -54,3 +69,16 @@ phi=$t*360/m;
 echo("ns=",ns);
 echo("pitch =",pitch);
 echo("helix_angle=",helix_angle);
+
+
+module FixingDrillSupportParts(location)
+{
+    rotate([90,0,0]) 
+        translate([0, location,  0]) 
+    {
+        translate([-((dsWidth - 2*dsTickness)+((dsWidth - 2*dsTickness)/2))/2,-dsTickness,0]) 
+            cylinder(r=FixingHolesDiameter/2, h=dsDepth, center=true);
+        translate([+((dsWidth - 2*dsTickness)+((dsWidth - 2*dsTickness)/2))/2,-dsTickness,0]) 
+            cylinder(r=FixingHolesDiameter/2, h=dsDepth, center=true);
+    }
+}

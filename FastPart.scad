@@ -1,17 +1,15 @@
 include <./Parameters.scad>;
 
+translate([0,0,100]) FastPart();
 
-
+module FastPart()
 translate([0,0,T/2])
 {
     Crown();
-    
-	//rotate([0,0,(np+1)*180/ns+phi*(ns+np)*2/ns])
-	
     Sun();
 	for(i=[1:m]) Planet(i);   
-    for(a=[0,90,180,270]) FasteningHoles(a);
-        
+    
+    //for(a=[0,90,180,270]) FasteningHoles(a);  
 }
 
 
@@ -19,6 +17,11 @@ translate([0,0,T/2])
 
 module Crown()
 {
+    difference()
+    {
+        cube([dsWidth,dsDepth/3,T],center=true);
+        cylinder(r=D/2-0.25,h=T+2,center=true,$fn=100);
+    }
     difference()
     {
 		cylinder(r=D/2,h=T,center=true,$fn=100);
@@ -30,6 +33,7 @@ module Crown()
 			cylinder(r=D/2-0.25,h=T+2,center=true,$fn=100);
 		}                 
 	}
+
 }
 
 module FasteningHoles(angle)
@@ -45,9 +49,10 @@ module FasteningHoles(angle)
 
 module Planet(i)
 {
-    rotate([0,0,i*360/m+phi])translate([pitchD/2*(ns+np)/nr,0,0])
-	rotate([0,0,i*ns/m*360/np-phi*(ns+np)/np-phi]) 
-    herringbone(np,pitch,P,DR,tol,helix_angle,T,true);
+    rotate([0,0,i*360/m+phi])
+        translate([pitchD/2*(ns+np)/nr,0,0])
+            rotate([0,0,i*ns/m*360/np-phi*(ns+np)/np-phi]) 
+                herringbone(np,pitch,P,DR,tol,helix_angle,T,true);
 }
 
 
@@ -55,8 +60,10 @@ module Sun()
 {
     difference()
     {
-		mirror([0,1,0])	herringbone(ns,pitch,P,DR,tol,helix_angle,T,false,true);
-		translate([0,0,-T+12+12+1]) cylinder(r=w/sqrt(3),h=12,center=true,$fn=6);
+		mirror([0,1,0])	
+            herringbone(ns,pitch,P,DR,tol,helix_angle,T,false,true);
+		translate([0,0,-T+12+12+1]) 
+            cylinder(r=w/sqrt(3),h=12,center=true,$fn=6);
 	}
 }
 
@@ -100,14 +107,23 @@ module herringbone(number_of_teeth,circular_pitch,pressure_angle,depth_ratio,cle
     union()
     {
         gear(number_of_teeth,circular_pitch,pressure_angle,depth_ratio,clearance,helix_angle,gear_thickness/2);
-        mirror([0,0,1]) gear(number_of_teeth,circular_pitch,pressure_angle,depth_ratio,clearance,helix_angle,gear_thickness/2);
+        mirror([0,0,1]) 
+            gear(number_of_teeth,circular_pitch,pressure_angle,depth_ratio,clearance,helix_angle,gear_thickness/2);
     }
     
-    if(satelliteHolder) translate ([0,0,-16]) cylinder (h = 8, r=3.95, $fn=50); 
-    if(satelliteHolder) translate ([0,0,-11]) cylinder (h = 1, r=6, $fn=50); 
+    if(satelliteHolder) 
+        translate ([0,0,-gear_thickness/2-bbT/2-bbIDWH]) 
+            cylinder (h=bbT, r=bbID/2 - tol, $fn=50, center=true); 
+    if(satelliteHolder) 
+        translate ([0,0,-gear_thickness/2-bbIDWH/2]) 
+            cylinder (h=bbIDWH, r=bbIR/2 - tol, $fn=50, center=true);
         
-    if(planetaryDrive) translate ([0,0,-11]) cylinder (h = 1, r=8, $fn=50);
-    if(planetaryDrive) translate ([0,0,-16]) cylinder (h = 5, r=3.9, $fn=50);
+    if(planetaryDrive) 
+        translate ([0,0,-gear_thickness/2-bbIDWH/2]) 
+            cylinder (h=bbIDWH, r=tbbED/2, $fn=50, center=true);
+    if(planetaryDrive) 
+        translate ([0,0,-gear_thickness/2-tbbT/2-bbIDWH]) 
+            cylinder (h=tbbT, r=tbbID/2 - tol, $fn=50,center=true);
 }
 
 module gear (number_of_teeth,circular_pitch,pressure_angle,depth_ratio,clearance,helix_angle,gear_thickness,flat=false)
@@ -116,7 +132,7 @@ module gear (number_of_teeth,circular_pitch,pressure_angle,depth_ratio,clearance
     twist=tan(helix_angle)*gear_thickness/pitch_radius*180/PI;
     
     flat_extrude(h=gear_thickness,twist=twist,flat=flat)
-    gear2D (number_of_teeth, circular_pitch, pressure_angle, depth_ratio, clearance);
+        gear2D(number_of_teeth, circular_pitch, pressure_angle, depth_ratio, clearance);
     
 }
 
@@ -142,14 +158,17 @@ module gear2D (number_of_teeth,circular_pitch,pressure_angle,depth_ratio,clearan
     
     intersection()
     {
-        rotate(90/number_of_teeth) circle($fn=number_of_teeth*3,r=pitch_radius+depth_ratio*circular_pitch/2-clearance/2);
+        rotate(90/number_of_teeth) 
+            circle($fn=number_of_teeth*3,r=pitch_radius+depth_ratio*circular_pitch/2-clearance/2);
         union()
         {
-            rotate(90/number_of_teeth) circle($fn=number_of_teeth*2,r=max(root_radius,pitch_radius-depth_ratio*circular_pitch/2-clearance/2));
+            rotate(90/number_of_teeth) 
+                circle($fn=number_of_teeth*2,r=max(root_radius,pitch_radius-depth_ratio*circular_pitch/2-clearance/2));
             for (i = [1:number_of_teeth])rotate(i*360/number_of_teeth)
             {
-                halftooth (pitch_angle,base_radius,min_radius,outer_radius, half_thick_angle);		
-                mirror([0,1]) halftooth (pitch_angle,base_radius,min_radius,outer_radius,half_thick_angle);
+                halftooth(pitch_angle,base_radius,min_radius,outer_radius, half_thick_angle);		
+                mirror([0,1]) 
+                    halftooth (pitch_angle,base_radius,min_radius,outer_radius,half_thick_angle);
             }
         }
     }
