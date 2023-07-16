@@ -18,7 +18,7 @@ tbbT=7;      // thickness
 tbbED=16;    // external diameter
 tbbID=8;     // internal diameter
 
-SlowPartHigh=38;
+SlowPartHigh=43;
 slowPartSmallDiameter=30;
 lhhW=17; // large hexagonal hole Width
 lhhH=10; // large hexagonal hole High
@@ -36,6 +36,9 @@ HoleDiameterForBearingBallPlate=34;
 BearingBallPlateHight=5;
 FixingHolesDiameter=5.5;
 
+adjustment=0.5;
+washers=1;
+
 // clearance
 tol=0.15;
 
@@ -50,7 +53,7 @@ P=45;//[30:60]
 nTwist=1;
 
 // width of little hexagonal hole
-w=6.7;
+w=6.6;
 
 DR=0.5*1;// maximum depth ratio of teeth
 

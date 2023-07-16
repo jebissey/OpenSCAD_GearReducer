@@ -25,7 +25,7 @@ module Crown()
     difference()
     {
 		cylinder(r=D/2,h=T,center=true,$fn=100);
-		herringbone(nr,pitch,P,DR,-tol,helix_angle,T+0.2);
+		herringbone(nr,pitch,P,DR,-adjustment,helix_angle,T+0.2);
         
 		difference()
         {
@@ -113,17 +113,17 @@ module herringbone(number_of_teeth,circular_pitch,pressure_angle,depth_ratio,cle
     
     if(satelliteHolder) 
         translate ([0,0,-gear_thickness/2-bbT/2-bbIDWH]) 
-            cylinder (h=bbT, r=bbID/2 - tol, $fn=50, center=true); 
+            cylinder (h=bbT, r=bbID/2 - adjustment, $fn=50, center=true); 
     if(satelliteHolder) 
         translate ([0,0,-gear_thickness/2-bbIDWH/2]) 
-            cylinder (h=bbIDWH, r=bbIR/2 - tol, $fn=50, center=true);
+            cylinder (h=bbIDWH, r=bbIR/2 - adjustment, $fn=50, center=true);
         
     if(planetaryDrive) 
         translate ([0,0,-gear_thickness/2-bbIDWH/2]) 
             cylinder (h=bbIDWH, r=tbbED/2, $fn=50, center=true);
     if(planetaryDrive) 
         translate ([0,0,-gear_thickness/2-tbbT/2-bbIDWH]) 
-            cylinder (h=tbbT, r=tbbID/2 - tol, $fn=50,center=true);
+            cylinder (h=tbbT, r=tbbID/2 - adjustment, $fn=50,center=true);
 }
 
 module gear (number_of_teeth,circular_pitch,pressure_angle,depth_ratio,clearance,helix_angle,gear_thickness,flat=false)
