@@ -17,11 +17,7 @@ translate([0,0,T/2])
 
 module Crown()
 {
-    difference()
-    {
-        cube([dsWidth,dsDepth/3,T],center=true);
-        cylinder(r=D/2-0.25,h=T+2,center=true,$fn=100);
-    }
+    translate([0,0,-T/2]) ExternalCrownAndLongBoxRounded();
     difference()
     {
 		cylinder(r=D/2,h=T,center=true,$fn=100);
@@ -34,6 +30,21 @@ module Crown()
 		}                 
 	}
 
+}
+
+module ExternalCrownAndLongBoxRounded()
+{
+    //https://learn.cadhub.xyz/docs/definitive-beginners/adding-fillets
+    difference()
+    {
+        linear_extrude(T){
+            offset(4)offset(-8)offset(4){
+                square([dsWidth,dsDepth/3],center=true);
+                circle(r=D/2,$fn=100);   
+            }
+        }
+        translate([0,0,T/2]) cylinder(r=D/2-tinny,h=T+tinny,center=true,$fn=100);
+    }
 }
 
 module FasteningHoles(angle)
@@ -71,21 +82,6 @@ module Sun()
 
 
 
-/*
-module rack(number_of_teeth=15,circular_pitch=10,pressure_angle=28,helix_angle=0,clearance=0,gear_thickness=5,flat=false)
-{
-    addendum=circular_pitch/(4*tan(pressure_angle));
-    
-    flat_extrude(h=gear_thickness,flat=flat)translate([0,-clearance*cos(pressure_angle)/2])
-    union()
-    {
-        translate([0,-0.5-addendum])square([number_of_teeth*circular_pitch,1],center=true);
-        for(i=[1:number_of_teeth])
-            translate([circular_pitch*(i-number_of_teeth/2-0.5),0])
-            polygon(points=[[-circular_pitch/2,-addendum],[circular_pitch/2,-addendum],[0,addendum]]);
-    }
-}
-*/
 
 module monogram(h)
 {

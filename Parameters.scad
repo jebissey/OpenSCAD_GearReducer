@@ -1,5 +1,8 @@
 // Planetary gear bearing (customizable)
 
+
+tinny=0.005;
+
 // outer diameter of ring
 D=80;
 
