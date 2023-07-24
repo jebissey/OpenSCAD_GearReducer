@@ -1,7 +1,7 @@
 include <./Parameters.scad>;
 
 
-translate([0,0,dsHighTop/2])    DrillSupportTop();
+translate([0,0,dsHighTop-30])    DrillSupportTop();
 
 module DrillSupportTop()
 difference()
@@ -11,4 +11,5 @@ difference()
     translate([0,0,-dsTickness/2]) cube([dsWidth - 2*dsTickness, dsDepth, dsHighTop-dsTickness],center=true);
     cylinder(r=dsHole/2 + tol*4, h=dsHighTop, center=true);
     FixingDrillSupportParts(-dsTickness/2);
+    FixingDrillSupportParts(-dsTickness/2+dsTickness);
 }

@@ -1,6 +1,6 @@
 include <./Parameters.scad>;
 
-translate([0,0,60]) SlowPart();
+translate([0,0,105]) SlowPart();
 
 module SlowPart()
 difference()

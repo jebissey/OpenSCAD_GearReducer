@@ -1,39 +1,34 @@
 // Planetary gear bearing (customizable)
-
-
 tinny=0.005;
 
-// outer diameter of ring
-D=80;
-
-// thickness
-T=20;
+D=100;  // outer diameter of ring
+T=20;   // thickness
 
 //Ball Bearing
 bbT=7;      // thickness
 bbED=22;    // external diameter
 bbID=8;     // internal diameter
 bbIR=12;    // internal ring
-bbIDWH=1; // internal disk washer high
+bbIDWH=1;   // internal disk washer high
 
 //Thrust Ball Bearing
 tbbT=7;      // thickness
 tbbED=16;    // external diameter
 tbbID=8;     // internal diameter
 
-SlowPartHigh=43;
+SlowPartHigh=44;
 slowPartSmallDiameter=30;
 lhhW=17; // large hexagonal hole Width
 lhhH=10; // large hexagonal hole High
 
 //Drill Support
-dsHighTop=200;
+dsHighTop=180;
 dsWidth=200;
 dsTickness=50;
 dsDepth= 70;
 dsHole=43;
 
-dsHighBottom=50;
+dsHighBottom=25;
 HoleDiameterForThreadedRod=14;
 HoleDiameterForBearingBallPlate=34;
 BearingBallPlateHight=5;
@@ -52,13 +47,10 @@ approximate_number_of_teeth_on_sun=10;
 // pressure angle
 P=45;//[30:60]
 
-// number of teeth to twist across
-nTwist=1;
-
-// width of little hexagonal hole
-w=6.6;
-
-DR=0.5*1;// maximum depth ratio of teeth
+nTwist=1;   // number of teeth to twist across
+w=13;       // width of little hexagonal hole
+wH=6;       // Height of little hexagonal hole
+DR=0.5*1;   // maximum depth ratio of teeth
 
 m=round(number_of_planets);
 np=round(number_of_teeth_on_planets);
@@ -76,15 +68,14 @@ echo("ns=",ns);
 echo("pitch =",pitch);
 echo("helix_angle=",helix_angle);
 
-
 module FixingDrillSupportParts(location)
 {
     rotate([90,0,0]) 
         translate([0, location,  0]) 
-    {
-        translate([-((dsWidth - 2*dsTickness)+((dsWidth - 2*dsTickness)/2))/2,-dsTickness,0]) 
-            cylinder(r=FixingHolesDiameter/2, h=dsDepth, center=true);
-        translate([+((dsWidth - 2*dsTickness)+((dsWidth - 2*dsTickness)/2))/2,-dsTickness,0]) 
-            cylinder(r=FixingHolesDiameter/2, h=dsDepth, center=true);
-    }
+        {
+            translate([-((dsWidth - 2*dsTickness)+((dsWidth - 2*dsTickness)/2))/2,-dsTickness,0]) 
+                cylinder(r=FixingHolesDiameter/2, h=dsDepth, center=true);
+            translate([+((dsWidth - 2*dsTickness)+((dsWidth - 2*dsTickness)/2))/2,-dsTickness,0]) 
+                cylinder(r=FixingHolesDiameter/2, h=dsDepth, center=true);
+        }
 }

@@ -1,18 +1,14 @@
 include <./Parameters.scad>;
 
-translate([0,0,100]) FastPart();
+translate([0,0,145]) FastPart();
 
 module FastPart()
 translate([0,0,T/2])
 {
     Crown();
     Sun();
-	for(i=[1:m]) Planet(i);   
-    
-    //for(a=[0,90,180,270]) FasteningHoles(a);  
+	for(i=[1:m]) Planet(i);
 }
-
-
 
 
 module Crown()
@@ -29,7 +25,6 @@ module Crown()
 			cylinder(r=D/2-0.25,h=T+2,center=true,$fn=100);
 		}                 
 	}
-
 }
 
 module ExternalCrownAndLongBoxRounded()
@@ -47,17 +42,6 @@ module ExternalCrownAndLongBoxRounded()
     }
 }
 
-module FasteningHoles(angle)
-{
-    rotate ([0,0,angle+45]) translate ([42,0,0]) difference () 
-    {
-         cylinder (h = T, r=5, center = true, $fn=100);
-         cylinder (h = T+2, r=2, center = true, $fn=100);
-    }
-}
-
-
-
 module Planet(i)
 {
     rotate([0,0,i*360/m+phi])
@@ -73,14 +57,10 @@ module Sun()
     {
 		mirror([0,1,0])	
             herringbone(ns,pitch,P,DR,tol,helix_angle,T,false,true);
-		translate([0,0,-T+12+12+1]) 
-            cylinder(r=w/sqrt(3),h=12,center=true,$fn=6);
+		translate([0,0,T/2-wH/2]) 
+            cylinder(r=w/sqrt(3),h=wH,center=true,$fn=6);
 	}
 }
-
-
-
-
 
 
 module monogram(h)

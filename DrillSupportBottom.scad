@@ -9,11 +9,12 @@ union()
 {
     difference()
     {
-        translate([0,0,dsHighBottom]) cube([dsWidth,dsDepth,dsHighBottom],center=true);
-        translate([0,0,dsHighBottom]) cube([dsWidth - 2*dsTickness,dsDepth,dsHighBottom],center=true);
-        translate([0,dsDepth/3,dsHighBottom]) cube([dsWidth,dsDepth/3,dsHighBottom],center=true);
-        translate([0,-dsDepth/3,dsHighBottom]) cube([dsWidth,dsDepth/3,dsHighBottom],center=true);
-        FixingDrillSupportParts(2*dsTickness);
+        translate([0,0,dsHighBottom*5/2]) cube([dsWidth,dsDepth,dsHighBottom*4],center=true);
+        translate([0,0,dsHighBottom*5/2]) cube([dsWidth - 2*dsTickness,dsDepth,dsHighBottom*4],center=true);
+        translate([0,dsDepth/3,dsHighBottom*5/2]) cube([dsWidth,dsDepth/3,dsHighBottom*4],center=true);
+        translate([0,-dsDepth/3,dsHighBottom*5/2]) cube([dsWidth,dsDepth/3,dsHighBottom*4],center=true);
+        FixingDrillSupportParts(2*dsTickness-10);
+        FixingDrillSupportParts(3*dsTickness-10);
     }
     difference()
     {
