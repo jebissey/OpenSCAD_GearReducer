@@ -18,8 +18,9 @@ tbbID=8;     // internal diameter
 
 SlowPartHigh=44;
 slowPartSmallDiameter=30;
-lhhW=17; // large hexagonal hole Width
-lhhH=10; // large hexagonal hole High
+lhhW=17.2;  // large hexagonal hole Width
+lhhH=10;    // large hexagonal hole High
+shhW=6.6;   // small hexagonal hole Width
 
 //Drill Support
 dsHighTop=180;

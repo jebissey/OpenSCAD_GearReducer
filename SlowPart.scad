@@ -29,8 +29,8 @@ module BallBearingHole(i)
 }
 module ThinChuckHole() 
     translate([0,0,+bbT/2]) 
-        rotate([0,0,20])
-            cylinder(r=w/sqrt(3), h=SlowPartHigh, center=true, $fn=6);
+        rotate([0,0,25])
+            cylinder(r=shhW/sqrt(3), h=SlowPartHigh, center=true, $fn=6);
 
 module LargeChuckHole() 
     translate([0,0,-SlowPartHigh/2 + bbT/2]) 
